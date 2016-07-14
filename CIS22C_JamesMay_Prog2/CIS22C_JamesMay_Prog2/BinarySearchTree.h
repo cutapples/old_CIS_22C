@@ -134,6 +134,7 @@ void BinarySearchTree<T>::deleteNode(BinaryNode<T>* node) {
 				while (tempPtr->leftChild->hasitem) {
 					tempPtr = tempPtr->leftChild;
 				}
+				delete tempPtr->leftChild;
 				node->leftChild->parent = tempPtr;
 				node->rightChild->parent = node->parent;
 				node->parent->leftChild = node->rightChild;
