@@ -111,8 +111,6 @@ void BinarySearchTree<T>::insert(T item) {
 	}
 }
 
-/*
-//Investigate case where the node to be deleted has left AND right subtrees (possible insertNode function?)
 template <typename T>
 void BinarySearchTree<T>::deleteNode(BinaryNode<T>* node) {
 	if (node != this->root) {
@@ -131,11 +129,27 @@ void BinarySearchTree<T>::deleteNode(BinaryNode<T>* node) {
 				node->rightChild->parent = node->parent;
 				node->parent->leftChild = node->rightChild;
 				delete node;
-			} else
+			} else {
+				BinaryNode<T>* tempPtr = node->rightChild;
+				while (tempPtr->leftChild->hasitem) {
+					tempPtr = tempPtr->leftChild;
+				}
+				node->leftChild->parent = tempPtr;
+				node->rightChild->parent = node->parent;
+				node->parent->leftChild = node->rightChild;
+				delete node;
+			}
 		}
 	}
 }
-*/
+
+template <typename T>
+void BinarySearchTree<T>::deleteItem(T item) {
+	BinaryNode<T>* node = search(item, this->root);
+	if (node != nullptr) {
+		deleteNode(node);
+	}
+}
 
 template <typename T>
 BinarySearchTree<T>::~BinarySearchTree() {
